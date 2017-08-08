@@ -41,11 +41,26 @@
         android:layout_height="wrap_content"
         android:hint="Description"/>
 
+    <Button
+        android:id="@+id/select_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "Select a picture"/>
+
+    <Button
+        android:id="@+id/upload_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "Upload"/>
+
 
     <Button
         android:id="@+id/post_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = "Post an Item"/>
+        android:text = "Post an Item"
+        android:textSize="15dp"
+        android:layout_marginTop="50dp"
+        android:padding="30dp"/>
 
 </LinearLayout>
