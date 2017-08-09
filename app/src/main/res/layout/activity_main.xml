@@ -35,6 +35,13 @@
             android:textColor="@android:color/white"
             android:layout_weight="0.03" />
 
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/googleBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.google.android.gms.common.SignInButton>
+
         <EditText
             android:id="@+id/username"
             android:layout_width="match_parent"

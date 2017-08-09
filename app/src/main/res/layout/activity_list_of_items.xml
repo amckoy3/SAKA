@@ -43,17 +43,36 @@
             android:padding="5dp"
             android:textColor="@android:color/black"/>
 
-        <Button
-            android:id="@+id/button_id"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "Post an Item"
-            android:textColor="@color/common_google_signin_btn_text_dark"
-            android:background="@color/mGreen"
-            android:padding="6dp"
-            android:textSize="16dp"
-            android:layout_marginLeft="90dp"
-            android:layout_marginBottom="20dp"/>
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "Post an Item"
+                android:textColor="@color/common_google_signin_btn_text_dark"
+                android:background="@color/mGreen"
+                android:padding="6dp"
+                android:textSize="16dp"
+                android:layout_marginLeft="90dp"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/log_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/mGreen"
+                android:layout_marginLeft="30dp"
+                android:text="Log out"
+                android:padding="6dp"
+                android:textSize="16dp"/>
+
+        </LinearLayout>
+
+
 
         <!-- Cards are trending searches and sends link to users profile to purchase book -->
         <!-- Cards are trending searches and sends link to users -->
