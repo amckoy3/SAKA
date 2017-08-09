@@ -36,7 +36,6 @@ public class PostItemActivity extends AppCompatActivity {
     private FirebaseStorage mStorage;
 
     private Button mChooseImages;
-    private Button mUploadButton;
 
     private static final int RC_PHOTO_PICKER =  2;
     Uri filePath;
@@ -56,12 +55,8 @@ public class PostItemActivity extends AppCompatActivity {
         mRatings = (EditText) findViewById(R.id.rating_id);
         mDescription = (EditText) findViewById(R.id.description_id);
         mChooseImages = (Button) findViewById(R.id.select_picture);
-        mUploadButton = (Button) findViewById(R.id.upload_picture);
 
-
-
-
-        //mPostButton = (Button) findViewById(R.id.post_id);
+        mPostButton = (Button) findViewById(R.id.post_id);
 
 
         //initializing firebase storage
@@ -69,7 +64,7 @@ public class PostItemActivity extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mImagesRef = mStorageRef.child("AppPhotos");
 
-        mChooseImages.setOnClickListener(new View.OnClickListener() {
+        mChooseImages.setOnClickListener(new View.OnClickListener() {           //this will launch the choose images window where we can choose images to upload
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -79,24 +74,16 @@ public class PostItemActivity extends AppCompatActivity {
             }
         });
 
-        mUploadButton.setOnClickListener(new View.OnClickListener() {
+        mPostButton.setOnClickListener(new View.OnClickListener() {         //this button, when clicked will create an Item object and send to the Firebase database.
             @Override
             public void onClick(View view) {
-                if (filePath != null) {
-                    StorageReference childRef = mStorageRef.child("image.jpg");
+                String itemName = mItemName.getText().toString();
+                String itemAddress = mAddress.getText().toString();
+                String phoneNumber = mPhoneNumber.getText().toString();
+                String ratings = mRatings.getText().toString();
+                String description = mDescription.getText().toString();
+                Item item = new Item(itemName, itemAddress, phoneNumber, ratings, description, filePath.toString()); //creates the item object
 
-                    //upload the image
-                    UploadTask uploadTask = childRef.putFile(filePath);
-                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(PostItemActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-                else {
-                    Toast.makeText(PostItemActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
@@ -105,31 +92,20 @@ public class PostItemActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK) {
+        if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK) {            //this statement will be invoked as soon as we select the image. We send the image to the Firebase storage here.
             Uri selectedImageUri = data.getData();
             StorageReference photoRef = mImagesRef.child(selectedImageUri.getLastPathSegment());
             photoRef.putFile(selectedImageUri).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    Log.i("aaa", downloadUrl.toString());
+                    filePath = downloadUrl;
+                    Log.i("sdf", downloadUrl.toString());
+                    Toast.makeText(PostItemActivity.this, "Upload is successful", Toast.LENGTH_SHORT);
+                    //Log.i("aaa", downloadUrl.toString());
                 }
             });
         }
     }
 
-    /*private View.OnClickListener buttonClickListener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v){
-            String name = mItemName.getText().toString();
-            String address = mAddress.getText().toString();
-            String phoneNumber = mPhoneNumber.getText().toString();
-            String rating = mRatings.getText().toString();
-            String description = mDescription.getText().toString();
-
-            Item item = new Item(name, address, phoneNumber, rating, description);
-            finish();
-        }
-    };*/
 }

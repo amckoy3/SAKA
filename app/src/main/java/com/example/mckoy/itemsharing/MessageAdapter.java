@@ -2,6 +2,8 @@ package com.example.mckoy.itemsharing;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -12,41 +14,28 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class MessageAdapter {
+public class MessageAdapter extends ArrayAdapter<Item> {
+    private List<Item> mDataSource;
 
-}
-
-/*public class MessageAdapter extends ArrayAdapter<FriendlyMessage> {
-    public MessageAdapter(Context context, int resource, List<FriendlyMessage> objects) {
+    public MessageAdapter(Context context, int resource, List<Item> objects) {
         super(context, resource, objects);
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
-            convertView = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.item_message, parent, false);
+            convertView = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.activity_list_of_items, parent, false);
         }
-
-        ImageView photoImageView = (ImageView) convertView.findViewById(R.id.photoImageView);
-        TextView messageTextView = (TextView) convertView.findViewById(R.id.messageTextView);
-        TextView authorTextView = (TextView) convertView.findViewById(R.id.nameTextView);
-
-        FriendlyMessage message = getItem(position);
-
-        boolean isPhoto = message.getPhotoUrl() != null;
-        if (isPhoto) {
-            messageTextView.setVisibility(View.GONE);
-            photoImageView.setVisibility(View.VISIBLE);
-            Glide.with(photoImageView.getContext())
-                    .load(message.getPhotoUrl())
-                    .into(photoImageView);
-        } else {
-            messageTextView.setVisibility(View.VISIBLE);
-            photoImageView.setVisibility(View.GONE);
-            messageTextView.setText(message.getText());
-        }
-        authorTextView.setText(message.getName());
+        ImageView itemImage = (ImageView) convertView.findViewById(R.id.itemImage);
+        TextView sellerName = (TextView) convertView.findViewById(R.id.sellerName);
+        TextView itemName = (TextView) convertView.findViewById(R.id.itemName);
+        Item item = getItem(position);
+        //declare how to show the image in 'itemImage' ImageView
+        sellerName.setText(item.getSellerName());
+        itemName.setText(item.getItemName());
 
         return convertView;
     }
-}*/
+}
+
