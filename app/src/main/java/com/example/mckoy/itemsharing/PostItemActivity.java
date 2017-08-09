@@ -16,12 +16,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.firebase.auth.FirebaseUser;
 
 //this activity is where the seller gives the information of the product he wants to sell
 public class PostItemActivity extends AppCompatActivity {
+
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
 
     private TextView mPostView;
     private EditText mItemName;
@@ -45,6 +50,11 @@ public class PostItemActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_item);
+
+        //initializing firebase
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
 
         mPostView = (TextView) findViewById(R.id.item_view);
         mPostView.setText("This is where you will give information about the product you want to sell");
@@ -82,11 +92,11 @@ public class PostItemActivity extends AppCompatActivity {
                 String phoneNumber = mPhoneNumber.getText().toString();
                 String ratings = mRatings.getText().toString();
                 String description = mDescription.getText().toString();
-                Item item = new Item(itemName, itemAddress, phoneNumber, ratings, description, filePath.toString()); //creates the item object
-
+                String sellerName = mFirebaseUser.getDisplayName();         //gets the name of the seller who posted the item
+                Item item = new Item(itemName, sellerName, itemAddress, phoneNumber, ratings, description, filePath.toString()); //creates the item object
+                ItemDataSource.get(PostItemActivity.this).sendItem(item);
             }
         });
-
     }
 
     @Override

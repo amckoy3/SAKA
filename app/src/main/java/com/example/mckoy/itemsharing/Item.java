@@ -1,6 +1,8 @@
 package com.example.mckoy.itemsharing;
 
 
+import com.google.firebase.database.DataSnapshot;
+
 public class Item {
     String itemName;
     String sellerName;
@@ -18,6 +20,16 @@ public class Item {
         this.rating = rating;
         this.description = description;
         this.photourl = photoUrl;
+    }
+
+    public Item(DataSnapshot itemSnapshot) {
+        itemName = itemSnapshot.child("mItemName").getValue(String.class);
+        sellerName = itemSnapshot.child("mSellerName").getValue(String.class);
+        address = itemSnapshot.child("mAddress").getValue(String.class);
+        phoneNumber = itemSnapshot.child("mPhoneNumber").getValue(String.class);
+        rating = itemSnapshot.child("mRating").getValue(String.class);
+        description = itemSnapshot.child("mDescription").getValue(String.class);
+        photourl = itemSnapshot.child("mPhotourl").getValue(String.class);
     }
 
     public String getSellerName() {
