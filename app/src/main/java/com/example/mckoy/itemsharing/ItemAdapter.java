@@ -25,7 +25,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
-            convertView = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.activity_list_of_items, parent, false);
+            convertView = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.list_view_item, parent, false);
         }
         ImageView itemImage = (ImageView) convertView.findViewById(R.id.itemImage);
         TextView sellerName = (TextView) convertView.findViewById(R.id.sellerName);

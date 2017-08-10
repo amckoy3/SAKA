@@ -45,6 +45,7 @@ public class ItemDataSource {
                 Iterable<DataSnapshot> iter = dataSnapshot.getChildren();
                 for (DataSnapshot itemSnapshot: iter) {
                     Item item = new Item(itemSnapshot);
+                    items.add(item);
                 }
                 itemListener.onItemsReceived(items);
             }

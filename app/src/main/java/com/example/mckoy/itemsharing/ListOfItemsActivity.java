@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
@@ -27,6 +29,9 @@ public class ListOfItemsActivity extends AppCompatActivity{
     //Firebase variables needed for logout
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private GoogleApiClient mGoogleApiClient;
+
+    private static final int POST_ITEM_ACTIVITY =  5;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +50,7 @@ public class ListOfItemsActivity extends AppCompatActivity{
         mButton = (Button) findViewById(R.id.button_id);
 
         //initializing Firebase instance variables
+
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -58,7 +64,11 @@ public class ListOfItemsActivity extends AppCompatActivity{
         mLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Firebase signout
                 mAuth.signOut();
+
+                //Google API signout
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient);
 
             }
         });
@@ -73,13 +83,31 @@ public class ListOfItemsActivity extends AppCompatActivity{
         mAuth.addAuthStateListener(mAuthListener);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == POST_ITEM_ACTIVITY) {
+            finish();
+        }
+    }
+
+    public void refresh() {
+        ItemDataSource.get(ListOfItemsActivity.this).getItems(new ItemDataSource.ItemListener() {
+            @Override
+            public void onItemsReceived(List<Item> items) {
+                mItems = items;
+                mListView.setAdapter(new ItemAdapter(ListOfItemsActivity.this, R.layout.list_view_item, items));
+            }
+        });
+    }
+
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v){
-            Intent i = new Intent(ListOfItemsActivity.this, PostItemActivity.class);
-            startActivity(i);
-
+            //Intent i = new Intent(ListOfItemsActivity.this, PostItemActivity.class);
+            //startActivity(i);
+            startActivityForResult(new Intent(ListOfItemsActivity.this, PostItemActivity.class), POST_ITEM_ACTIVITY);
         }
     };
 }

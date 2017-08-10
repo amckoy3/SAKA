@@ -93,6 +93,10 @@ public class PostItemActivity extends AppCompatActivity {
                 String ratings = mRatings.getText().toString();
                 String description = mDescription.getText().toString();
                 String sellerName = mFirebaseUser.getDisplayName();         //gets the name of the seller who posted the item
+                if (sellerName.length() == 0) {
+                    sellerName = "Suraj";
+                }
+                Log.i("as", "SEEEEEELLLLLLLLLLEEEEEEEEERRRRR!!!!!!!!!!::::::::" + sellerName);
                 Item item = new Item(itemName, sellerName, itemAddress, phoneNumber, ratings, description, filePath.toString()); //creates the item object
                 ItemDataSource.get(PostItemActivity.this).sendItem(item);
             }

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="16dp"
-    android:layout_marginStart="16dp">
+    android:layout_marginStart="16dp"
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -23,26 +24,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/sellerName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="6dp"
-            android:text="hello there"
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
+            <TextView
+                android:id="@+id/sellerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="6dp"
+                android:text="hello there"
+                android:background="@color/colorAccent"
+                android:textColor="@color/mGreen"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
 
-        <TextView
-            android:id="@+id/itemName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:layout_marginBottom="10dp"
-            android:text="hey suraj"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            <TextView
+                android:id="@+id/itemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginBottom="10dp"
+                android:text="hey suraj"
+                android:background="@color/colorAccent"
+                android:textColor="@color/mGreen"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
