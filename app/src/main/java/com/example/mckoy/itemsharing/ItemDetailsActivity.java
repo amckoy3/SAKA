@@ -30,6 +30,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_details);
 
+        //Here the Item object is received from the ListOfItemsActivity when an item is clicked. In order to send and Object from one activity to another, we need to make the Item class implements Serializable interface
         Intent i = getIntent();
         mItem = (Item)i.getSerializableExtra("itemObject");
 
@@ -48,10 +49,12 @@ public class ItemDetailsActivity extends AppCompatActivity {
         mRating.setText(mItem.getRating());
         mDescription.setText(mItem.getDescription());
 
-        Picasso.with(ItemDetailsActivity.this).load(mItem.getPhotourl()).into(mItemImage);
+        Picasso.with(ItemDetailsActivity.this).load(mItem.getPhotourl()).into(mItemImage);      //Picasso helps in loading the image from firebase and show in an ImageView
 
         //Integrating Maps API where clicking on Address would create a new intent and opens up Map
         final String myString = mItem.getAddress();
+
+        //Making the Address text view clickable in order to show the address in Map
         mAddress.setMovementMethod(LinkMovementMethod.getInstance());
         mAddress.setText(myString, TextView.BufferType.SPANNABLE);
         Spannable mySpannable = (Spannable) mAddress.getText();
@@ -61,11 +64,11 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(myString));
 
                 //creating an intent
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);        //Opens up Map
                 mapIntent.setPackage("com.google.android.apps.maps");
                 startActivity(mapIntent);
             }
         };
-        mySpannable.setSpan(myClickableSpan, 0, myString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mySpannable.setSpan(myClickableSpan, 0, myString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);     // (0, myString.length()) will underline from the first character to the last character of the address and makes it clickable
     }
 }
