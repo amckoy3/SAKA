@@ -1,9 +1,14 @@
 package com.example.mckoy.itemsharing;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,5 +49,23 @@ public class ItemDetailsActivity extends AppCompatActivity {
         mDescription.setText(mItem.getDescription());
 
         Picasso.with(ItemDetailsActivity.this).load(mItem.getPhotourl()).into(mItemImage);
+
+        //Integrating Maps API where clicking on Address would create a new intent and opens up Map
+        final String myString = mItem.getAddress();
+        mAddress.setMovementMethod(LinkMovementMethod.getInstance());
+        mAddress.setText(myString, TextView.BufferType.SPANNABLE);
+        Spannable mySpannable = (Spannable) mAddress.getText();
+        ClickableSpan myClickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View view) {
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(myString));
+
+                //creating an intent
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
+            }
+        };
+        mySpannable.setSpan(myClickableSpan, 0, myString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 }
