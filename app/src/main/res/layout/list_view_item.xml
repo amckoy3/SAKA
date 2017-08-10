@@ -36,7 +36,7 @@
 
         <ImageView
             android:id="@+id/itemImage"
-            android:layout_width="50dp"
+            android:layout_width="40dp"
             android:layout_height="60dp"
             android:layout_margin="10dp"/>
 
@@ -48,7 +48,7 @@
             android:layout_gravity="center"
             android:text="Fundamentals of Algorithms"
             android:textSize="15dp"
-            android:layout_weight="1"/>
+            android:layout_weight="2"/>
 
         <TextView
             android:id="@+id/price_of_item"
@@ -57,7 +57,7 @@
             android:layout_gravity="center"
             android:text="Price"
             android:textSize="15dp"
-            android:layout_weight="3"/>
+            android:layout_weight="4"/>
 
     </LinearLayout>
 

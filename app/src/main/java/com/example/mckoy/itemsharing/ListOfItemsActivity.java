@@ -149,6 +149,7 @@ public class ListOfItemsActivity extends AppCompatActivity{
             //Intent i = new Intent(ListOfItemsActivity.this, PostItemActivity.class);
             //startActivity(i);
             startActivityForResult(new Intent(ListOfItemsActivity.this, PostItemActivity.class), POST_ITEM_ACTIVITY);
+            finish();
         }
     };
 }

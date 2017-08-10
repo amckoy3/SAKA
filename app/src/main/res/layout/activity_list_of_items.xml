@@ -59,7 +59,7 @@
 
         <!-- Cards are trending searches and sends link to users profile to purchase book -->
         <android.support.v7.widget.CardView
-            android:layout_width="300dp"
+            android:layout_width="350dp"
             android:id="@+id/card_view"
             android:layout_height="match_parent"
             android:layout_gravity="center"
