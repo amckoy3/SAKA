@@ -30,6 +30,7 @@ public class ListOfItemsActivity extends AppCompatActivity{
     private List<Item> mItems;
     private ListView mListView;
 
+
     //Log out button
     private Button mLogoutButton;
 
@@ -137,7 +138,6 @@ public class ListOfItemsActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         View view = LayoutInflater.from(this).inflate(R.layout.edit_text, null);
         final EditText commentEditText = (EditText) view.findViewById(R.id.text_input);
-
 
         return super.onOptionsItemSelected(item);
     }
