@@ -30,6 +30,7 @@ public class PostItemActivity extends AppCompatActivity {
 
     private TextView mPostView;
     private EditText mItemName;
+    private EditText mItemPrice;
     private EditText mAddress;
     private EditText mPhoneNumber;
     private EditText mRatings;
@@ -60,6 +61,7 @@ public class PostItemActivity extends AppCompatActivity {
         mPostView.setText("This is where you will give information about the product you want to sell");
 
         mItemName = (EditText) findViewById(R.id.name_id);
+        mItemPrice = (EditText) findViewById(R.id.item_price);
         mAddress = (EditText) findViewById(R.id.address_id);
         mPhoneNumber = (EditText) findViewById(R.id.phoneNumber_id);
         mRatings = (EditText) findViewById(R.id.rating_id);
@@ -88,6 +90,7 @@ public class PostItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String itemName = mItemName.getText().toString();
+                String itemPrice = mItemPrice.getText().toString();
                 String itemAddress = mAddress.getText().toString();
                 String phoneNumber = mPhoneNumber.getText().toString();
                 String ratings = mRatings.getText().toString();
@@ -97,7 +100,7 @@ public class PostItemActivity extends AppCompatActivity {
                     sellerName = "Suraj";
                 }
                 Log.i("as", "SEEEEEELLLLLLLLLLEEEEEEEEERRRRR!!!!!!!!!!::::::::" + sellerName);
-                Item item = new Item(itemName, sellerName, itemAddress, phoneNumber, ratings, description, filePath.toString()); //creates the item object
+                Item item = new Item(itemName, sellerName, itemPrice, itemAddress, phoneNumber, ratings, description, filePath.toString()); //creates the item object
                 ItemDataSource.get(PostItemActivity.this).sendItem(item);
             }
         });

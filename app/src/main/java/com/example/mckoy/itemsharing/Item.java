@@ -3,18 +3,22 @@ package com.example.mckoy.itemsharing;
 
 import com.google.firebase.database.DataSnapshot;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable{
     String itemName;
     String sellerName;
+    String price;
     String address;
     String phoneNumber;
     String rating;
     String description;
     String photourl;
 
-    public Item(String itemname, String sellerName, String address, String phoneNumber, String rating, String description, String photoUrl) {
+    public Item(String itemname, String sellerName, String price, String address, String phoneNumber, String rating, String description, String photoUrl) {
         this.itemName = itemname;
         this.sellerName = sellerName;
+        this.price = price;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.rating = rating;
@@ -25,6 +29,7 @@ public class Item {
     public Item(DataSnapshot itemSnapshot) {
         itemName = itemSnapshot.child("mItemName").getValue(String.class);
         sellerName = itemSnapshot.child("mSellerName").getValue(String.class);
+        price = itemSnapshot.child("mPrice").getValue(String.class);
         address = itemSnapshot.child("mAddress").getValue(String.class);
         phoneNumber = itemSnapshot.child("mPhoneNumber").getValue(String.class);
         rating = itemSnapshot.child("mRating").getValue(String.class);
@@ -38,6 +43,10 @@ public class Item {
 
     public String getItemName() {
         return itemName;
+    }
+
+    public String getPrice() {
+        return price;
     }
 
     public String getAddress() {

@@ -4,9 +4,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,6 +81,22 @@ public class ListOfItemsActivity extends AppCompatActivity{
         });
 
 
+        //when any rows of items are clicked
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Object o = mListView.getItemAtPosition(position);
+                Item item = (Item)o;
+                //Toast.makeText(ListOfItemsActivity.this, "You have chosen : " + " " + item.getItemName(), Toast.LENGTH_LONG).show();
+
+                //this will call ItemDetailsActivity
+                Intent i = new Intent(ListOfItemsActivity.this, ItemDetailsActivity.class);
+                i.putExtra("itemObject", item);
+                startActivity(i);
+            }
+        });
+
+
         mButton.setOnClickListener(buttonClickListener);
     }
 
@@ -99,6 +122,24 @@ public class ListOfItemsActivity extends AppCompatActivity{
                 mListView.setAdapter(new ItemAdapter(ListOfItemsActivity.this, R.layout.list_view_item, items));
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        MenuItem item = menu.findItem(R.id.app_search_bar);
+        SearchView searchView = (SearchView) item.getActionView();
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        View view = LayoutInflater.from(this).inflate(R.layout.edit_text, null);
+        final EditText commentEditText = (EditText) view.findViewById(R.id.text_input);
+
+
+        return super.onOptionsItemSelected(item);
     }
 
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {

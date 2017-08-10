@@ -1,66 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:background="@drawable/postbackg"
+    android:weightSum="1">
 
-    <TextView
-        android:id="@+id/item_view"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_margin="30dp"/>
-
-    <EditText
-        android:id = "@+id/name_id"
-        android:layout_width="150dp"
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="Name of an item"/>
-
-    <EditText
-        android:id = "@+id/address_id"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:hint="Address"/>
-
-    <EditText
-        android:id = "@+id/phoneNumber_id"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:hint="Phone Number"/>
-
-    <EditText
-        android:id = "@+id/rating_id"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:hint="Rating of the item"/>
-
-    <EditText
-        android:id = "@+id/description_id"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:hint="Description"/>
-
-    <Button
-        android:id="@+id/select_picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "Select a picture"/>
-
-    <!--<Button
-        android:id="@+id/upload_picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "Upload"/>-->
-
-
-    <Button
-        android:id="@+id/post_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "Post an Item"
-        android:textSize="15dp"
+        android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:padding="20dp"/>
+        app:cardElevation="14dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_view"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_margin="30dp"
+                android:textColor="@android:color/black" />
+
+            <EditText
+                android:id="@+id/name_id"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="Name of item" />
+
+            <EditText
+                android:id="@+id/item_price"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="Price" />
+
+            <EditText
+                android:id="@+id/address_id"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="Address"
+                android:textColor="@android:color/black" />
+
+            <EditText
+                android:id="@+id/phoneNumber_id"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="Phone Number" />
+
+            <EditText
+                android:id="@+id/rating_id"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="Rating of the item" />
+
+            <EditText
+                android:id="@+id/description_id"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="Description" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/select_picture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select a picture"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/post_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Post"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

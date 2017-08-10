@@ -30,10 +30,12 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         ImageView itemImage = (ImageView) convertView.findViewById(R.id.itemImage);
         TextView sellerName = (TextView) convertView.findViewById(R.id.sellerName);
         TextView itemName = (TextView) convertView.findViewById(R.id.itemName);
+        TextView itemPrice = (TextView) convertView.findViewById(R.id.price_of_item);
         Item item = getItem(position);
         //declare how to show the image in 'itemImage' ImageView
         sellerName.setText(item.getSellerName());
         itemName.setText(item.getItemName());
+        itemPrice.setText("Price: $" + item.getPrice());
 
         return convertView;
     }

@@ -17,8 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListOfItemsActivity"></activity>
-        <activity android:name=".PostItemActivity"></activity>
+        <activity android:name=".ListOfItemsActivity"
+            android:theme="@style/Listheme"></activity>
+
+        <activity android:name=".PostItemActivity"
+            android:theme="@style/Listheme"></activity>
+        <activity android:name=".ItemDetailsActivity"></activity>
     </application>
 
 </manifest>

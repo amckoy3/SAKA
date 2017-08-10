@@ -65,6 +65,7 @@ public class ItemDataSource {
         Map<String, String> itemValMap = new HashMap<>();
         itemValMap.put("mItemName", item.getItemName());
         itemValMap.put("mSellerName", item.getSellerName());
+        itemValMap.put("mPrice", item.getPrice());
         itemValMap.put("mAddress", item.getAddress());
         itemValMap.put("mPhoneNumber", item.getPhoneNumber());
         itemValMap.put("mRating", item.getRating());
