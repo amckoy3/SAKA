@@ -31,6 +31,7 @@ public class ListOfItemsActivity extends AppCompatActivity{
     private List<Item> mItems;
     private ListView mListView;
 
+
     //Log out button
     private Button mLogoutButton;
 
@@ -177,7 +178,6 @@ public class ListOfItemsActivity extends AppCompatActivity{
     }
 
 
-
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
 
         @Override
@@ -185,6 +185,7 @@ public class ListOfItemsActivity extends AppCompatActivity{
             //Intent i = new Intent(ListOfItemsActivity.this, PostItemActivity.class);
             //startActivity(i);
             startActivityForResult(new Intent(ListOfItemsActivity.this, PostItemActivity.class), POST_ITEM_ACTIVITY);
+            finish();
         }
     };
 }
