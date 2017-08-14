@@ -13,4 +13,7 @@
     <string name="user_name">Charles Smith</string>
     <string name="book_name">Fundamentals of Algorithms 4th Edition</string>
     <string name="book_author">John Black</string>
+    <string name="negative_text">Cancel</string>
+    <string name="positive_text">Ok</string>
+    <string name="title">Search</string>
 </resources>

@@ -3,6 +3,7 @@ package com.example.mckoy.itemsharing;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.ImageLoader;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ItemDataSource {
+    private ImageLoader mImageLoader;
 
     public interface ItemListener {
         void onItemsReceived(List<Item> items);
@@ -35,17 +37,22 @@ public class ItemDataSource {
     }
 
     //Firebase methods
-    public void getItems(final ItemListener itemListener) {
+    public void getItems(final String query, final ItemListener itemListener) {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference itemsRef = databaseRef.child("items");
+
         itemsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Item> items = new ArrayList<>();
                 Iterable<DataSnapshot> iter = dataSnapshot.getChildren();
                 for (DataSnapshot itemSnapshot: iter) {
-                    Item item = new Item(itemSnapshot);
-                    items.add(item);
+                    String description = itemSnapshot.child("mItemName").getValue(String.class);
+                    boolean contains = description.toLowerCase().contains(query.toLowerCase());
+                    if(contains == true) {
+                        Item item = new Item(itemSnapshot);
+                        items.add(item);
+                    }
                 }
                 itemListener.onItemsReceived(items);
             }
@@ -80,6 +87,9 @@ public class ItemDataSource {
                 }
             }
         });
+    }
+    public ImageLoader getImageLoader() {
+        return mImageLoader;
     }
 
 }

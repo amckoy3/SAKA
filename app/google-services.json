@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "445342065149-1iip260gohkqf9p6bjrd9jn52hn6impf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mckoy.itemsharing",
+            "certificate_hash": "281dae076a867aa969af6e5943a7f374bebdc737"
+          }
+        },
+        {
           "client_id": "445342065149-d9clslo6bsn2iruak75pbu6q6rerk2r8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
