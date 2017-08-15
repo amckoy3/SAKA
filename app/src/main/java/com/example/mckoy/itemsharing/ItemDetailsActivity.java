@@ -9,9 +9,13 @@ import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 public class ItemDetailsActivity extends AppCompatActivity {
@@ -70,5 +74,20 @@ public class ItemDetailsActivity extends AppCompatActivity {
             }
         };
         mySpannable.setSpan(myClickableSpan, 0, myString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);     // (0, myString.length()) will underline from the first character to the last character of the address and makes it clickable
+
+        Button buyButton = (Button)findViewById(R.id.buy_button);
+        buyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference itemsRef = FirebaseDatabase.getInstance().getReference().child("items");
+                DatabaseReference itemRef = itemsRef.child(mItem.getItemKey());
+                String buyerName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                if (buyerName.length() == 0) {
+                    buyerName = "Suraj";
+                }
+                itemRef.child("mBuyerName").setValue(buyerName);
+                itemRef.child("mBuyerPhone").setValue("123456789");
+            }
+        });
     }
 }

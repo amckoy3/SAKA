@@ -15,6 +15,12 @@ public class Item implements Serializable{
     String description;
     String photourl;
 
+    public String getItemKey() {
+        return itemKey;
+    }
+
+    String itemKey;
+
     public Item(String itemname, String sellerName, String price, String address, String phoneNumber, String rating, String description, String photoUrl) {
         this.itemName = itemname;
         this.sellerName = sellerName;
@@ -35,6 +41,7 @@ public class Item implements Serializable{
         rating = itemSnapshot.child("mRating").getValue(String.class);
         description = itemSnapshot.child("mDescription").getValue(String.class);
         photourl = itemSnapshot.child("mPhotourl").getValue(String.class);
+        itemKey = itemSnapshot.getKey();
     }
 
     public String getSellerName() {

@@ -100,7 +100,9 @@ public class PostItemActivity extends AppCompatActivity {
                     sellerName = "Suraj";
                 }
                 Log.i("as", "SEEEEEELLLLLLLLLLEEEEEEEEERRRRR!!!!!!!!!!::::::::" + sellerName);
-                Item item = new Item(itemName, sellerName, itemPrice, itemAddress, phoneNumber, ratings, description, filePath.toString()); //creates the item object
+                String filePathString = null;
+                if (filePath!=null) filePathString = filePath.toString();
+                Item item = new Item(itemName, sellerName, itemPrice, itemAddress, phoneNumber, ratings, description, filePathString); //creates the item object
                 ItemDataSource.get(PostItemActivity.this).sendItem(item);
             }
         });
