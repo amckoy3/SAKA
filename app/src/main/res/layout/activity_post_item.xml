@@ -72,22 +72,33 @@
                 android:orientation="horizontal"
                 android:gravity="center">
 
-                <Button
-                    android:id="@+id/select_picture"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Select a picture"
-                    android:textAlignment="center" />
+                    android:text="Select an image: "/>
 
                 <Button
-                    android:id="@+id/post_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Post"
-                    android:textSize="15dp" />
+                    android:id="@+id/select_picture"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@mipmap/ic_browse"
+                    android:elevation="9dp"
+                    android:textAlignment="center"
+                    android:textSize="8sp" />
+
+
 
             </LinearLayout>
 
+            <Button
+                android:id="@+id/post_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="Post"
+                android:textColor="@color/mGreen"
+                android:textSize="15dp"
+                android:textStyle="bold" />
 
 
 

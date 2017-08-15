@@ -22,7 +22,8 @@
 
         <activity android:name=".PostItemActivity"
             android:theme="@style/Listheme"></activity>
-        <activity android:name=".ItemDetailsActivity"></activity>
+        <activity android:name=".ItemDetailsActivity"
+            android:theme="@style/Listheme"></activity>
     </application>
 
 </manifest>
