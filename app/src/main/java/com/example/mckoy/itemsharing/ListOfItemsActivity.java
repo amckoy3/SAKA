@@ -1,12 +1,14 @@
 package com.example.mckoy.itemsharing;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,7 +17,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -30,6 +31,7 @@ public class ListOfItemsActivity extends AppCompatActivity{
     private List<Item> mItems;
     private ListView mListView;
 
+
     //Log out button
     private Button mLogoutButton;
 
@@ -39,6 +41,8 @@ public class ListOfItemsActivity extends AppCompatActivity{
     private GoogleApiClient mGoogleApiClient;
 
     private static final int POST_ITEM_ACTIVITY =  5;
+    private String mQuery ;
+    public final static String mQueryKey = "query";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,7 +51,7 @@ public class ListOfItemsActivity extends AppCompatActivity{
         Toast.makeText(ListOfItemsActivity.this, "Login is successful",
                 Toast.LENGTH_SHORT).show();
         mListView = (ListView) findViewById(R.id.list_view);
-        ItemDataSource.get(ListOfItemsActivity.this).getItems(new ItemDataSource.ItemListener() {
+        ItemDataSource.get(ListOfItemsActivity.this).getItems("",new ItemDataSource.ItemListener() {
             @Override
             public void onItemsReceived(List<Item> items) {
                 mItems = items;
@@ -115,7 +119,7 @@ public class ListOfItemsActivity extends AppCompatActivity{
     }
 
     public void refresh() {
-        ItemDataSource.get(ListOfItemsActivity.this).getItems(new ItemDataSource.ItemListener() {
+        ItemDataSource.get(ListOfItemsActivity.this).getItems("", new ItemDataSource.ItemListener() {
             @Override
             public void onItemsReceived(List<Item> items) {
                 mItems = items;
@@ -124,23 +128,55 @@ public class ListOfItemsActivity extends AppCompatActivity{
         });
     }
 
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
+        inflater.inflate(R.menu.main_menu,menu);
         MenuItem item = menu.findItem(R.id.app_search_bar);
-        SearchView searchView = (SearchView) item.getActionView();
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        View view = LayoutInflater.from(this).inflate(R.layout.edit_text, null);
-        final EditText commentEditText = (EditText) view.findViewById(R.id.text_input);
+        switch (item.getItemId()) {
+            case R.id.app_search_bar:
+                AlertDialog.Builder bObject = new AlertDialog.Builder(this);
+                final EditText textInput = new EditText(this);
+                textInput.setInputType(InputType.TYPE_CLASS_TEXT);
+                bObject.setView(textInput);
+                bObject.setTitle(R.string.title)
+                        //.setCancelable(false)
+                        .setPositiveButton(R.string.positive_text, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dInterface, int x) {
+                                mQuery = textInput.getText().toString();
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container
+                                        , createCustomFragment(new SearchFragment(), mQuery)).commit();
 
-
-        return super.onOptionsItemSelected(item);
+                            }
+                        })
+                        .setNegativeButton(R.string.negative_text, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dInterface, int x) {
+                                dInterface.cancel();
+                            }
+                        });
+                AlertDialog dialog = bObject.create();
+                dialog.show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
+    private Fragment createCustomFragment(Fragment fragment, String query){
+        Bundle bundle = new Bundle();
+        bundle.putString(mQueryKey,query);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
 
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
 
@@ -149,6 +185,7 @@ public class ListOfItemsActivity extends AppCompatActivity{
             //Intent i = new Intent(ListOfItemsActivity.this, PostItemActivity.class);
             //startActivity(i);
             startActivityForResult(new Intent(ListOfItemsActivity.this, PostItemActivity.class), POST_ITEM_ACTIVITY);
+            finish();
         }
     };
 }

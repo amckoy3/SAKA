@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -32,11 +33,11 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         TextView itemName = (TextView) convertView.findViewById(R.id.itemName);
         TextView itemPrice = (TextView) convertView.findViewById(R.id.price_of_item);
         Item item = getItem(position);
-        //declare how to show the image in 'itemImage' ImageView
+
+        Picasso.with(getContext()).load(item.getPhotourl()).into(itemImage);   //Picasso library helps to load the image in the ImageView
         sellerName.setText(item.getSellerName());
         itemName.setText(item.getItemName());
         itemPrice.setText("Price: $" + item.getPrice());
-
         return convertView;
     }
 }
