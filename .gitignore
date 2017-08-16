@@ -1,13 +1,7 @@
-/.DS_Store
-	/.gradle/
-	/.idea/compiler.xml
-	/.idea/copyright/
-	/.idea/misc.xml
-	/.idea/workspace.xml
-	/app/.DS_Store
-	/app/google-services.json
-	/app/src/.DS_Store
-	/app/src/main/.DS_Store
-	/app/src/main/res/.DS_Store
-/build/
-	/local.properties
+.DS_Store
+.gradle/
+.idea/*
+.DS_Store
+*.iml
+build/
+local.properties

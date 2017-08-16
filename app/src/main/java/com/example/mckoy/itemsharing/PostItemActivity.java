@@ -1,11 +1,8 @@
 package com.example.mckoy.itemsharing;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,10 +14,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.firebase.auth.FirebaseUser;
 
 //this activity is where the seller gives the information of the product he wants to sell
 public class PostItemActivity extends AppCompatActivity {
@@ -65,6 +62,7 @@ public class PostItemActivity extends AppCompatActivity {
         mAddress = (EditText) findViewById(R.id.address_id);
         mPhoneNumber = (EditText) findViewById(R.id.phoneNumber_id);
         mRatings = (EditText) findViewById(R.id.rating_id);
+        mRatings.setHint("Rate your item out of 10");
         mDescription = (EditText) findViewById(R.id.description_id);
         mChooseImages = (Button) findViewById(R.id.select_picture);
 
@@ -91,18 +89,43 @@ public class PostItemActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String itemName = mItemName.getText().toString();
                 String itemPrice = mItemPrice.getText().toString();
+                try {
+                    int num = Integer.parseInt(itemPrice);
+                    //Log.i("",num+" is a number");
+                } catch (NumberFormatException e) {
+                    Log.i("",itemPrice+" is not a number");
+                    mItemPrice.setText("");
+                    mItemPrice.setHint("Enter the number again!");
+                    return;
+                }
                 String itemAddress = mAddress.getText().toString();
                 String phoneNumber = mPhoneNumber.getText().toString();
+                try {
+                    int num = Integer.parseInt(phoneNumber);
+                    //Log.i("",num+" is a number");
+                } catch (NumberFormatException e) {
+                    Log.i("",phoneNumber+" is not a number");
+                    mPhoneNumber.setText("");
+                    mPhoneNumber.setHint("Enter the phone number again!");
+                    return;
+                }
                 String ratings = mRatings.getText().toString();
+                try {
+                    int num = Integer.parseInt(ratings);
+                    //Log.i("",num+" is a number");
+                } catch (NumberFormatException e) {
+                    Log.i("",ratings+" is not a number");
+                    mRatings.setText("");
+                    mRatings.setHint("Enter the ratings again!");
+                    return;
+                }
                 String description = mDescription.getText().toString();
                 String sellerName = mFirebaseUser.getDisplayName();         //gets the name of the seller who posted the item
                 if (sellerName.length() == 0) {
                     sellerName = "Suraj";
                 }
                 Log.i("as", "SEEEEEELLLLLLLLLLEEEEEEEEERRRRR!!!!!!!!!!::::::::" + sellerName);
-                String filePathString = null;
-                if (filePath!=null) filePathString = filePath.toString();
-                Item item = new Item(itemName, sellerName, itemPrice, itemAddress, phoneNumber, ratings, description, filePathString); //creates the item object
+                Item item = new Item(itemName, sellerName, itemPrice, itemAddress, phoneNumber, ratings, description, filePath.toString()); //creates the item object
                 ItemDataSource.get(PostItemActivity.this).sendItem(item);
             }
         });
