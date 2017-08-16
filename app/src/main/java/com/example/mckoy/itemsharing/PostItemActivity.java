@@ -117,10 +117,11 @@ public class PostItemActivity extends AppCompatActivity {
             photoRef.putFile(selectedImageUri).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(getApplicationContext(), "Upload is successful", Toast.LENGTH_SHORT);
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
                     filePath = downloadUrl;
                     Log.i("sdf", downloadUrl.toString());
-                    Toast.makeText(PostItemActivity.this, "Upload is successful", Toast.LENGTH_SHORT);
+
                     //Log.i("aaa", downloadUrl.toString());
                 }
             });

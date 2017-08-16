@@ -1,6 +1,7 @@
 package com.example.mckoy.itemsharing;
 
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -84,6 +85,8 @@ public class ItemDataSource {
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 if (databaseError == null) {
                     Toast.makeText(mContext, "Item has been posted!", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(mContext, ListOfItemsActivity.class);
+                    mContext.startActivity(i);
                 }
             }
         });
