@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -111,7 +112,7 @@ public class ListOfItemsActivity extends AppCompatActivity{
                 String name = dataSnapshot.child("mBuyerName").getValue(String.class);
                 String itemName = dataSnapshot.child("mItemName").getValue(String.class);
 
-                //String buyerPhoneNumber = dataSnapshot.child("mBuyerPhone").getValue(String.class);
+                String buyerPhoneNumber = dataSnapshot.child("mBuyerPhone").getValue(String.class);
 
 
                 String nameCheck = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
@@ -132,7 +133,7 @@ public class ListOfItemsActivity extends AppCompatActivity{
 
                     NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                     manager.notify(0, builder.build());
-                    openDialog(name, itemName);
+                    openDialog(name, itemName, buyerPhoneNumber);
                 }
 
             }
@@ -173,14 +174,20 @@ public class ListOfItemsActivity extends AppCompatActivity{
         mButton.setOnClickListener(buttonClickListener);
     }
 
-    public void openDialog(String buyerName, String itemName) {
+    public void openDialog(String buyerName, String itemName, final String buyerPhoneNum) {
+        String link1 = "<a href=\"http://www.google.com\">http://www.google.com</a>";
+        String message = "Some links: "+link1+"link1, link2, link3";
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Buyer Found!")
-                .setMessage(buyerName + " wants to buy your item: " + itemName)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                .setMessage(buyerName + " wants to buy your item: " + itemName + "\n\nPhone Number: " + buyerPhoneNum)
+                .setPositiveButton("Send SMS", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        Intent smsIntent = new Intent(Intent.ACTION_VIEW);
+                        smsIntent.setType("vnd.android-dir/mms-sms");
+                        smsIntent.setData(Uri.parse("sms:" + buyerPhoneNum));
+                        smsIntent.putExtra("sms_body","");
+                        startActivity(smsIntent);
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
