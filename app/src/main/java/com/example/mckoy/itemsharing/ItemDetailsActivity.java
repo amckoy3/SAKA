@@ -18,6 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ItemDetailsActivity extends AppCompatActivity {
     private TextView mSellerName;
     private TextView mItemName;
@@ -85,8 +88,12 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 if (buyerName.length() == 0) {
                     buyerName = "Suraj";
                 }
-                itemRef.child("mBuyerName").setValue(buyerName);
-                itemRef.child("mBuyerPhone").setValue("123456789");
+                Map<String, Object> map = new HashMap<>();
+                map.put("mBuyerName", buyerName);
+                map.put("mBuyerPhone", "1234567890");
+                /*itemRef.child("mBuyerName").setValue(buyerName);
+                itemRef.child("mBuyerPhone").setValue("123456789");*/
+                itemRef.updateChildren(map);
             }
         });
     }

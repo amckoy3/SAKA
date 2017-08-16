@@ -1,6 +1,7 @@
 package com.example.mckoy.itemsharing;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.RingtoneManager;
@@ -112,18 +113,23 @@ public class ListOfItemsActivity extends AppCompatActivity{
 
                 //String buyerPhoneNumber = dataSnapshot.child("mBuyerPhone").getValue(String.class);
 
+
                 String nameCheck = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
                 if (nameCheck.length() == 0 || nameCheck == null) {
                     nameCheck = "Suraj";
                 }
                 if (!nameCheck.equals(name)) {          //this does not allow notifications to appear on the buyer because we want notifications to appear on Seller's phone
+
+                    PendingIntent pendIntent = PendingIntent.getActivity(getApplicationContext(),1, new Intent(getApplicationContext(), ListOfItemsActivity.class), 0);
                     Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext())
                             .setAutoCancel(true)
                             .setContentTitle("Buyer is interested!")
                             .setContentText(name)
                             .setSound(soundUri)
-                            .setSmallIcon(android.R.drawable.btn_dropdown);
+                            .setSmallIcon(android.R.drawable.btn_dropdown)
+                            .setContentIntent(pendIntent);
+
                     NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                     manager.notify(0, builder.build());
                     openDialog(name, itemName);
@@ -171,6 +177,18 @@ public class ListOfItemsActivity extends AppCompatActivity{
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Buyer Found!")
                 .setMessage(buyerName + " wants to buy your item: " + itemName)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
                 .create();
         dialog.show();
     }
